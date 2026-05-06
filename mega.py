@@ -54,9 +54,12 @@ def clear_leds():
     pixels.fill((0, 0, 0))
     pixels.show()
 
-def set_first_20_leds_on():
+def set_last_20_leds_on():
     clear_leds()
-    for i in range(min(LED_COUNT_ON_PRESS, NUM_PIXELS)):
+    # Calculate starting point (e.g., 800 - 20 = 780)
+    start_index = max(0, NUM_PIXELS - LED_COUNT_ON_PRESS)
+    
+    for i in range(start_index, NUM_PIXELS):
         pixels[i] = LED_COLOR
     pixels.show()
 
@@ -118,8 +121,8 @@ def hall_triggered():
 # BUTTON LED CALLBACKS
 # =========================
 def button_pressed():
-    print("Button pressed: turning on first 20 LEDs.")
-    set_first_20_leds_on()
+    print(f"Button pressed: turning on last {LED_COUNT_ON_PRESS} LEDs.")
+    set_last_20_leds_on()
 
 def button_released():
     print("Button released: turning off LEDs.")
